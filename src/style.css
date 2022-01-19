@@ -85,4 +85,8 @@ body {
   margin: 0;
   padding: 0;
   flex-grow: 1;
+  background-color: lightgray;
+  border-width: 1px;
+  border-style: solid;
+  border-color: darkgray;
 }

@@ -14,8 +14,8 @@ export default function App() {
   const havePlayed = window.localStorage.getItem("wordle") === todayWord;
 
   const [answers, setAnswers] = useState(
-    havePlayed
-      ? JSON.parse(window.localStorage.getItem("answers"))
+    window.localStorage.getItem(`answers${todayWord}`)
+      ? JSON.parse(window.localStorage.getItem(`answers${todayWord}`))
       : ["", "", "", "", "", ""]
   );
   const [guess, setGuess] = useState("");
@@ -58,7 +58,7 @@ export default function App() {
         const newAnswers = [...answers];
         newAnswers[chance] = guess;
         setAnswers(newAnswers);
-        window.localStorage.setItem("answers", JSON.stringify(newAnswers));
+        window.localStorage.setItem(`answers${todayWord}`, JSON.stringify(newAnswers));
         setChance(chance + 1);
         setGuess("");
       }
