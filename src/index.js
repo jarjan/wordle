@@ -11,7 +11,7 @@ const timestamp = 1642628391000;
 
 export default function App() {
   const todayWord = words[parseInt((Date.now() - timestamp) / 86400000, 10)];
-  const havePlayed = localStorage.getItem("wordle") === todayWord;
+  const havePlayed = window.localStorage.getItem("wordle") === todayWord;
 
   const [answers, setAnswers] = useState(
     havePlayed
