@@ -73,11 +73,6 @@ body {
   padding: 2px 0;
   justify-content: center;
 }
-.keyboard__row:first-of-type:after,
-.keyboard__row:first-of-type:before {
-  content: " ";
-  flex-grow: 0.5;
-}
 
 .keyboard__key {
   line-height: 40px;
@@ -88,5 +83,20 @@ body {
   background-color: lightgray;
   border-width: 1px;
   border-style: solid;
-  border-color: darkgray;
+  border-color: gray;
+  cursor: pointer;
+}
+
+.keyboard__key.special {
+  border-color: black;
+  background-color: darkgrey;
+}
+
+.keyboard__key:hover {
+  background-color: gray;
+}
+
+.keyboard__key:active {
+  background-color: black;
+  color: white;
 }
