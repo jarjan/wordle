@@ -30,34 +30,39 @@ body {
 .board__tiles {
   display: flex;
   gap: 4px;
+  justify-content: center;
   padding: 2px 0;
 }
 
 .board__tile {
-  flex: 1;
   font-size: 30px;
   font-weight: bold;
-  line-height: 40px;
-  height: 40px;
+  line-height: 60px;
+  height: 60px;
+  width: 60px;
   border-style: solid;
   border-width: 2px;
   border-color: black;
   text-align: center;
   text-transform: uppercase;
+  transition: all 300ms ease-in-out;
 }
 
 .board__tile.empty {
   border-color: darkgray;
 }
 
+.keyboard__key.answered,
 .board__tile.answered {
-  background-color: lightgray;
+  background-color: gray;
 }
 
+.keyboard__key.correct,
 .board__tile.correct {
   background-color: gold;
 }
 
+.keyboard__key.inPosition,
 .board__tile.inPosition {
   background-color: greenyellow;
 }
@@ -90,13 +95,4 @@ body {
 .keyboard__key.special {
   border-color: black;
   background-color: darkgrey;
-}
-
-.keyboard__key:hover {
-  background-color: gray;
-}
-
-.keyboard__key:active {
-  background-color: black;
-  color: white;
 }
