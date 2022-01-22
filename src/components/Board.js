@@ -15,48 +15,26 @@ const Tile = ({ value, isAnswered, isCorrect, isInPosition }) => {
   );
 };
 
-const Board = ({ answers, guess, chance, todayWord }) => {
+const Board = ({ answers, guess, chance, tips }) => {
   return (
     <div class="board">
-      {answers.map((answer, index) => {
+      {answers.map((answer, i) => {
         if (answer !== "") {
           return (
-            <div class="board__tiles">
-              <Tile
-                value={answer[0]}
-                isAnswered
-                isCorrect={todayWord.includes(answer[0])}
-                isInPosition={answer[0] === todayWord[0]}
-              />
-              <Tile
-                value={answer[1]}
-                isAnswered
-                isCorrect={todayWord.includes(answer[1])}
-                isInPosition={answer[1] === todayWord[1]}
-              />
-              <Tile
-                value={answer[2]}
-                isAnswered
-                isCorrect={todayWord.includes(answer[2])}
-                isInPosition={answer[2] === todayWord[2]}
-              />
-              <Tile
-                value={answer[3]}
-                isAnswered
-                isCorrect={todayWord.includes(answer[3])}
-                isInPosition={answer[3] === todayWord[3]}
-              />
-              <Tile
-                value={answer[4]}
-                isAnswered
-                isCorrect={todayWord.includes(answer[4])}
-                isInPosition={answer[4] === todayWord[4]}
-              />
+            <div key={`answer-${i}`} class="board__tiles">
+              {answer.split("").map((letter, j) => (
+                <Tile
+                  value={letter}
+                  isAnswered
+                  isCorrect={tips[i]?.[j]?.isCorrect}
+                  isInPosition={tips[i]?.[j]?.isInPosition}
+                />
+              ))}
             </div>
           );
-        } else if (index === chance) {
+        } else if (i === chance) {
           return (
-            <div class="board__tiles">
+            <div key={`answer-${i}`} class="board__tiles">
               <Tile value={guess[0] || ""} />
               <Tile value={guess[1] || ""} />
               <Tile value={guess[2] || ""} />
@@ -67,7 +45,7 @@ const Board = ({ answers, guess, chance, todayWord }) => {
         }
 
         return (
-          <div key={`answer-${index}`} class="board__tiles">
+          <div key={`answer-${i}`} class="board__tiles">
             <Tile value={""} />
             <Tile value={""} />
             <Tile value={""} />

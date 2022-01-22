@@ -1,10 +1,21 @@
 import cls from "classnames";
+import { useCallback } from "preact/hooks";
 
-const Key = ({ value, label, onClick }) => (
+const Key = ({
+  value,
+  label,
+  onClick,
+  isAnswered,
+  isCorrect,
+  isInPosition,
+}) => (
   <button
     id={value}
     class={cls("keyboard__key", {
       special: ["←", "↵"].includes(value),
+      answered: isAnswered,
+      correct: isCorrect,
+      inPosition: isInPosition,
     })}
     type="button"
     onClick={onClick}
@@ -13,19 +24,24 @@ const Key = ({ value, label, onClick }) => (
   </button>
 );
 
-const Keyboard = ({ onLetter, onRemove, onEnter, keys }) => {
-  const handleClick = (e) => {
-    switch (e.target.id) {
-      case "↵":
-        onEnter();
-        break;
-      case "←":
-        onRemove();
-        break;
-      default:
-        onLetter(e.target.id);
-    }
-  };
+const Keyboard = ({ onLetter, onRemove, onEnter, keys, keyTips }) => {
+  const handleClick = useCallback(
+    (e) => {
+      switch (e.target.id) {
+        case "↵":
+          onEnter();
+          break;
+        case "←":
+          onRemove();
+          break;
+        default:
+          onLetter(e.target.id);
+      }
+    },
+    [onEnter, onRemove, onLetter]
+  );
+
+  console.log(keyTips);
 
   return (
     <div class="keyboard">
@@ -37,6 +53,9 @@ const Keyboard = ({ onLetter, onRemove, onEnter, keys }) => {
               value={value}
               label={label}
               onClick={handleClick}
+              isAnswered={keyTips[value]?.isAnswered}
+              isCorrect={keyTips[value]?.isCorrect}
+              isInPosition={keyTips[value]?.isInPosition}
             />
           ))}
         </div>
