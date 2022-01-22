@@ -7,23 +7,41 @@
     "build": "preact build --no-prerender",
     "serve": "sirv build --port 8080 --cors --single",
     "dev": "preact watch",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "postinstall": "npx simple-git-hooks"
   },
   "eslintConfig": {
-    "extends": "preact"
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier",
+      "plugin:prettier/recommended",
+      "preact"
+    ]
   },
   "eslintIgnore": [
     "build/*"
   ],
+  "nano-staged": {
+    "**/*.{css,js}": "prettier --write"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "./node_modules/.bin/nano-staged"
+  },
   "devDependencies": {
-    "eslint": "^7.17.0",
-    "eslint-config-preact": "^1.1.3",
-    "preact-cli": "^3.0.0",
-    "sirv-cli": "^1.0.3"
+    "eslint": "8.7.0",
+    "eslint-config-preact": "1.3.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "nano-staged": "0.5.0",
+    "preact-cli": "3.0.0",
+    "prettier": "2.5.1",
+    "simple-git-hooks": "2.7.0",
+    "sirv-cli": "1.0.3"
   },
   "dependencies": {
-    "classnames": "^2.3.1",
-    "preact": "^10.1.0",
-    "preact-render-to-string": "^5.1.2"
+    "classnames": "2.3.1",
+    "preact": "10.1.0",
+    "preact-render-to-string": "5.1.2"
   }
 }
