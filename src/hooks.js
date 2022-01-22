@@ -15,9 +15,12 @@ export const useGame = () => {
   const [guess, setGuess] = useState("");
   const [chance, setChance] = useState(0);
   const [gameover, setGameover] = useState(havePlayed);
-  const [untilNextWord, setUntilNextWord] = useState("00:00:00");
+  const [untilNextWord, setUntilNextWord] = useState("00:00:01");
 
   useLayoutEffect(() => {
+    if (untilNextWord === "00:00:00") {
+      window.location.reload();
+    }
     if (gameover) {
       const interval = setInterval(() => {
         const now = Date.now();
