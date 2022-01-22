@@ -62,12 +62,12 @@ body {
 
 .keyboard__key.correct,
 .board__tile.correct {
-  background-color: gold;
+  background-color: #e1c73d;
 }
 
 .keyboard__key.inPosition,
 .board__tile.inPosition {
-  background-color: greenyellow;
+  background-color: #719b31;
 }
 
 .keyboard {
@@ -98,4 +98,17 @@ body {
 .keyboard__key.special {
   border-color: black;
   background-color: darkgrey;
+}
+
+@media (prefers-color-scheme: light) {
+  html,
+  body {
+    background-color: black;
+    color: white;
+  }
+
+  .board__tile,
+  .keyboard__key.special {
+    border-color: white;
+  }
 }
