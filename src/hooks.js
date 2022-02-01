@@ -1,6 +1,8 @@
-import { useEffect, useLayoutEffect, useState } from "preact/hooks";
+import { useContext, useEffect, useLayoutEffect, useState } from "preact/hooks";
 
 import words from "./words.json";
+
+import { ToastContext } from "./components/Toast";
 
 export const timestamp = 1642628391000;
 export const todayWord = words[Math.floor((Date.now() - timestamp) / 86400000)];
@@ -13,6 +15,7 @@ const initialChance = initialAnswers.findIndex((answer) => answer === "") || 0;
 const initialGameover = window.localStorage.getItem("wordle") === todayWord;
 
 export const useGame = () => {
+  const { setToast } = useContext(ToastContext);
   const [answers, setAnswers] = useState(initialAnswers);
   const [tips, setTips] = useState(initialTips);
   const [keyTips, setKeyTips] = useState({});
@@ -89,16 +92,16 @@ export const useGame = () => {
     if (!gameover) {
       if (guess === todayWord) {
         handleGameover();
-        alert("Жарайсын! Кешірек келсең жаңа сөз пайда болады");
+        setToast("Жарайсын! Кешірек келсең жаңа сөз пайда болады");
       }
       if (chance === 5) {
         handleGameover();
-        alert("Келесі рет сәті түсер");
+        setToast("Келесі рет сәті түсер");
       }
       if (guess.length < 5) {
-        alert("5 әріпті толық еңгізу керек!");
+        setToast("5 әріпті толық еңгізу керек!");
       } else if (!words.includes(guess)) {
-        alert("Мұндай сөз сөздікте жоқ :(");
+        setToast("Мұндай сөз сөздікте жоқ :(");
       }
       if (words.includes(guess)) {
         let newAnswers = [...answers];

@@ -24,6 +24,7 @@ body {
   flex-direction: column;
   flex-wrap: nowrap;
   box-sizing: border-box;
+  position: relative;
 }
 
 .board {
@@ -67,7 +68,7 @@ body {
 
 .keyboard__key.exact,
 .board__tile.exact {
-  background-color: #719b31;
+  background-color: rgb(113, 155, 49);
 }
 
 .keyboard {
@@ -111,4 +112,22 @@ body {
   .keyboard__key.special {
     border-color: white;
   }
+}
+
+.toast {
+  position: absolute;
+  margin: 20px auto;
+  background: rgba(4, 62, 255, 0.9);
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, -20px);
 }
