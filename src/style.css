@@ -65,8 +65,8 @@ body {
   background-color: #e1c73d;
 }
 
-.keyboard__key.inPosition,
-.board__tile.inPosition {
+.keyboard__key.exact,
+.board__tile.exact {
   background-color: #719b31;
 }
 

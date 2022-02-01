@@ -1,21 +1,14 @@
 import cls from "classnames";
 import { useCallback } from "preact/hooks";
 
-const Key = ({
-  value,
-  label,
-  onClick,
-  isAnswered,
-  isCorrect,
-  isInPosition,
-}) => (
+const Key = ({ value, label, onClick, isAnswered, isCorrect, isExact }) => (
   <button
     id={value}
     class={cls("keyboard__key", {
       special: ["←", "↵"].includes(value),
       answered: isAnswered,
       correct: isCorrect,
-      inPosition: isInPosition,
+      exact: isExact,
     })}
     type="button"
     onClick={onClick}
@@ -41,8 +34,6 @@ const Keyboard = ({ onLetter, onRemove, onEnter, keys, keyTips }) => {
     [onEnter, onRemove, onLetter]
   );
 
-  console.log(keyTips);
-
   return (
     <div class="keyboard">
       {keys.map((row, index) => (
@@ -55,7 +46,7 @@ const Keyboard = ({ onLetter, onRemove, onEnter, keys, keyTips }) => {
               onClick={handleClick}
               isAnswered={keyTips[value]?.isAnswered}
               isCorrect={keyTips[value]?.isCorrect}
-              isInPosition={keyTips[value]?.isInPosition}
+              isExact={keyTips[value]?.isExact}
             />
           ))}
         </div>

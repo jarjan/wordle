@@ -19,7 +19,7 @@ export const useGame = () => {
   const [guess, setGuess] = useState("");
   const [chance, setChance] = useState(initialChance);
   const [gameover, setGameover] = useState(initialGameover);
-  const [untilNextWord, setUntilNextWord] = useState("00:00:01");
+  const [untilNextWord, setUntilNextWord] = useState("23:59:59");
 
   // Effect for updating tips
   useEffect(() => {
@@ -33,10 +33,10 @@ export const useGame = () => {
             newKeyTips[letter] = { isAnswered: true };
           }
           if (letter === todayWord[j]) {
-            newKeyTips[letter] = { isInPosition: true };
-            newTips[i][j] = { isInPosition: true };
+            newKeyTips[letter] = { isExact: true };
+            newTips[i][j] = { isExact: true };
             word = word.replace(letter, "");
-          } else if (word.includes(letter)) {
+          } else if (word.includes(letter) && !newKeyTips[letter].isExact) {
             newKeyTips[letter] = { isCorrect: true };
             newTips[i][j] = { isCorrect: true };
           }

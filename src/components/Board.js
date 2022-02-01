@@ -1,13 +1,13 @@
 import cls from "classnames";
 
-const Tile = ({ value, isAnswered, isCorrect, isInPosition }) => {
+const Tile = ({ value, isAnswered, isCorrect, isExact }) => {
   return (
     <span
       class={cls("board__tile", {
         empty: value === "",
         answered: isAnswered,
         correct: isCorrect,
-        inPosition: isInPosition,
+        exact: isExact,
       })}
     >
       {value}
@@ -27,7 +27,7 @@ const Board = ({ answers, guess, chance, tips }) => {
                   value={letter}
                   isAnswered
                   isCorrect={tips[i]?.[j]?.isCorrect}
-                  isInPosition={tips[i]?.[j]?.isInPosition}
+                  isExact={tips[i]?.[j]?.isExact}
                 />
               ))}
             </div>
