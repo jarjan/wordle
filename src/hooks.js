@@ -38,10 +38,11 @@ export const useGame = () => {
           if (letter === todayWord[j]) {
             newKeyTips[letter] = { isExact: true };
             newTips[i][j] = { isExact: true };
-            word = word.replace(letter, "");
+            word = word.replace(letter, "X");
           } else if (word.includes(letter) && !newKeyTips[letter].isExact) {
             newKeyTips[letter] = { isCorrect: true };
             newTips[i][j] = { isCorrect: true };
+            word = word.replace(letter, "X");
           }
         });
       }
@@ -94,10 +95,7 @@ export const useGame = () => {
         handleGameover();
         setToast("Жарайсын! Кешірек келсең жаңа сөз пайда болады");
       }
-      if (chance === 5) {
-        handleGameover();
-        setToast("Келесі рет сәті түсер");
-      }
+
       if (guess.length < 5) {
         setToast("5 әріпті толық еңгізу керек!");
       } else if (!words.includes(guess)) {
@@ -114,6 +112,10 @@ export const useGame = () => {
         setChance(chance + 1);
         setGuess("");
       }
+    }
+    if (chance === 5) {
+      handleGameover();
+      setToast("Келесі рет сәті түсер");
     }
   };
 
