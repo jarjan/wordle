@@ -1,8 +1,6 @@
-import { useContext, useEffect, useLayoutEffect, useState } from "preact/hooks";
+import { useEffect, useLayoutEffect, useState } from "preact/hooks";
 
-import words from "./words.json";
-
-import { ToastContext } from "./components/Toast";
+import words from "../constants/words.json";
 
 export const timestamp = 1642628391000;
 export const todayWord = words[Math.floor((Date.now() - timestamp) / 86400000)];
@@ -14,8 +12,25 @@ const initialTips = [[], [], [], [], [], []];
 const initialChance = initialAnswers.findIndex((answer) => answer === "") || 0;
 const initialGameover = window.localStorage.getItem("wordle") === todayWord;
 
+const useToast = () => {
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const setToast = (message) => {
+    setShowToast(true);
+    setToastMessage(message);
+
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+  };
+
+  return { showToast, toastMessage, setToast };
+};
+
 export const useGame = () => {
-  const { setToast } = useContext(ToastContext);
+  const { showToast, toastMessage, setToast } = useToast();
+
   const [answers, setAnswers] = useState(initialAnswers);
   const [tips, setTips] = useState(initialTips);
   const [keyTips, setKeyTips] = useState({});
@@ -72,27 +87,27 @@ export const useGame = () => {
     }
   }, [gameover]);
 
-  const handleGameover = () => {
+  const onGameover = () => {
     setGameover(true);
     window.localStorage.setItem("wordle", todayWord);
   };
 
-  const handleLetter = (letter) => {
+  const onLetter = (letter) => {
     if (guess.length < 5) {
       setGuess(guess + letter);
     }
   };
 
-  const handleRemove = () => {
+  const onRemove = () => {
     if (guess.length > 0) {
       setGuess(guess.slice(0, -1));
     }
   };
 
-  const handleEnter = () => {
+  const onEnter = () => {
     if (!gameover) {
       if (guess === todayWord) {
-        handleGameover();
+        onGameover();
         setToast("Жарайсын! Кешірек келсең жаңа сөз пайда болады");
       }
 
@@ -114,12 +129,16 @@ export const useGame = () => {
       }
     }
     if (chance === 5) {
-      handleGameover();
+      onGameover();
       setToast("Келесі рет сәті түсер");
     }
   };
 
   return {
+    showToast,
+    toastMessage,
+    setToast,
+
     answers,
     guess,
     chance,
@@ -127,8 +146,8 @@ export const useGame = () => {
     untilNextWord,
     tips,
     keyTips,
-    handleLetter,
-    handleRemove,
-    handleEnter,
+    onLetter,
+    onRemove,
+    onEnter,
   };
 };

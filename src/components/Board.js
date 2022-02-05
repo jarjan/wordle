@@ -1,6 +1,9 @@
 import cls from "classnames";
+import { useContext } from "preact/hooks";
 
-const Tile = ({ value, isAnswered, isCorrect, isExact }) => {
+import { GameContext } from "../game/provider";
+
+export const Tile = ({ value, isAnswered, isCorrect, isExact }) => {
   return (
     <span
       class={cls("board__tile", {
@@ -15,7 +18,9 @@ const Tile = ({ value, isAnswered, isCorrect, isExact }) => {
   );
 };
 
-const Board = ({ answers, guess, chance, tips }) => {
+export const Board = () => {
+  const { answers, guess, chance, tips } = useContext(GameContext);
+
   return (
     <div class="board">
       {answers.map((answer, i) => {
@@ -57,5 +62,3 @@ const Board = ({ answers, guess, chance, tips }) => {
     </div>
   );
 };
-
-export default Board;

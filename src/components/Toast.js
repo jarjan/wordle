@@ -1,29 +1,12 @@
 import cls from "classnames";
-import { createContext } from "preact";
-import { useState } from "preact/hooks";
+import { useContext } from "preact/hooks";
 
-export const ToastContext = createContext({ setToast: () => {} });
+import { GameContext } from "../game/provider";
 
-const Toast = ({ children }) => {
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-
-  const setToast = (message) => {
-    setShowToast(true);
-    setToastMessage(message);
-
-    setTimeout(() => {
-      setShowToast(false);
-      setToastMessage("");
-    }, 3000);
-  };
+export const Toast = () => {
+  const { showToast, toastMessage } = useContext(GameContext);
 
   return (
-    <ToastContext.Provider value={{ setToast }}>
-      <div className={cls("toast", { show: showToast })}>{toastMessage}</div>
-      {children}
-    </ToastContext.Provider>
+    <div className={cls("toast", { show: showToast })}>{toastMessage}</div>
   );
 };
-
-export default Toast;

@@ -1,7 +1,18 @@
 import cls from "classnames";
-import { useCallback } from "preact/hooks";
+import { useCallback, useContext } from "preact/hooks";
 
-const Key = ({ value, label, onClick, isAnswered, isCorrect, isExact }) => (
+import keys from "../constants/keys.json";
+
+import { GameContext } from "../game/provider";
+
+export const Key = ({
+  value,
+  label,
+  onClick,
+  isAnswered,
+  isCorrect,
+  isExact,
+}) => (
   <button
     id={value}
     class={cls("keyboard__key", {
@@ -17,7 +28,10 @@ const Key = ({ value, label, onClick, isAnswered, isCorrect, isExact }) => (
   </button>
 );
 
-const Keyboard = ({ onLetter, onRemove, onEnter, keys, keyTips }) => {
+export const Keyboard = () => {
+  const { gameover, keyTips, onLetter, onRemove, onEnter } =
+    useContext(GameContext);
+
   const handleClick = useCallback(
     (e) => {
       switch (e.target.id) {
@@ -33,6 +47,10 @@ const Keyboard = ({ onLetter, onRemove, onEnter, keys, keyTips }) => {
     },
     [onEnter, onRemove, onLetter]
   );
+
+  if (gameover) {
+    return null;
+  }
 
   return (
     <div class="keyboard">
@@ -54,5 +72,3 @@ const Keyboard = ({ onLetter, onRemove, onEnter, keys, keyTips }) => {
     </div>
   );
 };
-
-export default Keyboard;
