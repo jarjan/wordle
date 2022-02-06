@@ -23,7 +23,7 @@ export const Share = () => {
   const handleClick = useCallback(() => {
     if (navigator.share) {
       navigator.share({
-        text: `Қазақша Wordle!\n${result}\nhttps://wordle.jarjan.xyz`,
+        title: `Қазақша Wordle!\n${result}\nhttps://wordle.jarjan.xyz`,
       });
     }
   }, [tips]);
