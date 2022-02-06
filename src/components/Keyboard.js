@@ -48,9 +48,7 @@ export const Keyboard = () => {
     [onEnter, onRemove, onLetter]
   );
 
-  if (gameover) {
-    return null;
-  }
+  if (gameover) return null;
 
   return (
     <div class="keyboard">

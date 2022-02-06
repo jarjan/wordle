@@ -131,3 +131,13 @@ body {
   opacity: 1;
   transform: translate(-50%, -20px);
 }
+
+.share {
+  padding: 20px 0;
+}
+.share button {
+  display: block;
+  margin: auto;
+  font-size: 30px;
+  padding: 10px 30px;
+}

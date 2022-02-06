@@ -37,24 +37,26 @@ export const GameProvider = ({ children }) => {
   } = useGame();
 
   return (
-    <GameContext.Provider
-      value={{
-        setToast,
-        showToast,
-        toastMessage,
-        answers,
-        guess,
-        chance,
-        gameover,
-        untilNextWord,
-        tips,
-        keyTips,
-        onLetter,
-        onRemove,
-        onEnter,
-      }}
-    >
-      {children}
-    </GameContext.Provider>
+    <div class="wordle">
+      <GameContext.Provider
+        value={{
+          setToast,
+          showToast,
+          toastMessage,
+          answers,
+          guess,
+          chance,
+          gameover,
+          untilNextWord,
+          tips,
+          keyTips,
+          onLetter,
+          onRemove,
+          onEnter,
+        }}
+      >
+        {children}
+      </GameContext.Provider>
+    </div>
   );
 };

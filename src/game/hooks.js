@@ -128,7 +128,7 @@ export const useGame = () => {
         setGuess("");
       }
     }
-    if (chance === 5) {
+    if (chance > 5) {
       onGameover();
       setToast("Келесі рет сәті түсер");
     }
