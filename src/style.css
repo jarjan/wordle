@@ -64,12 +64,12 @@ body {
 
 .keyboard__key.correct,
 .board__tile.correct {
-  background-color: #e1c73d;
+  background-color: #fbff00;
 }
 
 .keyboard__key.exact,
 .board__tile.exact {
-  background-color: rgb(113, 155, 49);
+  background-color: #c9e265;
 }
 
 .keyboard {
@@ -118,7 +118,7 @@ body {
 .toast {
   position: absolute;
   margin: 20px auto;
-  background: rgba(4, 62, 255, 0.9);
+  background: rgba(201, 226, 101, 0.9);
   color: white;
   padding: 10px;
   border-radius: 10px;
@@ -136,11 +136,24 @@ body {
 
 .share {
   padding: 20px 0;
+  display: flex;
+  gap: 20px;
 }
 
-.share button {
+.share__button {
+  background: none;
+  border: 2px solid rgba(201, 226, 101, 0.9);
+  color: #c9e265;
   display: block;
   margin: auto;
   font-size: 30px;
   padding: 10px 30px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+.share__button:hover {
+  background-color: #c9e265;
+  color: white;
 }
