@@ -30,7 +30,7 @@ export const Share = () => {
     }
   }, []);
 
-  if (!gameover) return null;
+  if (!gameover || !navigator.share) return null;
 
   return (
     <div class="share">
