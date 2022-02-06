@@ -23,12 +23,10 @@ export const Share = () => {
   const handleClick = useCallback(() => {
     if (navigator.share) {
       navigator.share({
-        title: "Қазақша Wordle!",
-        text: `Қазақша Wordle!\n${result}`,
-        url: "https://wordle.jarjan.xyz",
+        text: `Қазақша Wordle!\n${result}\nhttps://wordle.jarjan.xyz`,
       });
     }
-  }, []);
+  }, [tips]);
 
   if (!gameover || !navigator.share) return null;
 
