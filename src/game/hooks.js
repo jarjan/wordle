@@ -108,7 +108,7 @@ export const useGame = () => {
     if (!gameover) {
       if (guess === todayWord) {
         onGameover();
-        setToast("Жарайсын! Кешірек келсең жаңа сөз пайда болады");
+        setToast("Жарайсың! Кешірек келсең жаңа сөз пайда болады.");
       }
 
       if (guess.length < 5) {
@@ -130,7 +130,7 @@ export const useGame = () => {
     }
     if (chance > 5) {
       onGameover();
-      setToast("Келесі рет сәті түсер");
+      setToast("Келесі рет сәті түсер.");
     }
   };
 
