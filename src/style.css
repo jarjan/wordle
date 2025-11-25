@@ -63,16 +63,84 @@ body {
 .keyboard__key.answered,
 .board__tile.answered {
   background-color: gray;
+  border-color: gray;
+  color: white;
 }
 
 .keyboard__key.correct,
 .board__tile.correct {
   background-color: #fbff00;
+  border-color: #fbff00;
+  color: black;
 }
 
 .keyboard__key.exact,
 .board__tile.exact {
   background-color: #c9e265;
+  border-color: #c9e265;
+  color: white;
+}
+
+/* Animations */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0);
+  }
+
+  50% {
+    transform: rotateX(90deg);
+  }
+
+  100% {
+    transform: rotateX(0);
+  }
+}
+
+.board__tile:not(.empty):not(.answered) {
+  animation: pop 0.1s;
+}
+
+.board__tile.answered {
+  animation: flip 0.5s ease-in;
+}
+
+.board__tile.answered:nth-child(1) {
+  animation-delay: 0ms;
+  transition-delay: 250ms;
+}
+
+.board__tile.answered:nth-child(2) {
+  animation-delay: 100ms;
+  transition-delay: 350ms;
+}
+
+.board__tile.answered:nth-child(3) {
+  animation-delay: 200ms;
+  transition-delay: 450ms;
+}
+
+.board__tile.answered:nth-child(4) {
+  animation-delay: 300ms;
+  transition-delay: 550ms;
+}
+
+.board__tile.answered:nth-child(5) {
+  animation-delay: 400ms;
+  transition-delay: 650ms;
 }
 
 .keyboard {
