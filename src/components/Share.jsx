@@ -6,11 +6,11 @@ const convertTip = (row) => {
   return Array.from({ length: 5 })
     .map((_, i) => {
       if (row[i] && row[i].isExact) {
-        return "🟩";
+        return "\u{1F7E9}";
       } else if (row[i] && row[i].isCorrect) {
-        return "🟨";
+        return "\u{1F7E8}";
       }
-      return "⬜️";
+      return "\u{2B1C}\u{FE0F}";
     })
     .join("");
 };
@@ -19,7 +19,7 @@ export const Share = () => {
   const { gameover, tips } = useContext(GameContext);
   const table = tips.map(convertTip);
   const result = table
-    .slice(0, table.findIndex((row) => row === "🟩🟩🟩🟩🟩") + 1)
+    .slice(0, table.findIndex((row) => row === "\u{1F7E9}\u{1F7E9}\u{1F7E9}\u{1F7E9}\u{1F7E9}") + 1)
     .join("\n");
   const url = "https://wordle.jarjan.xyz";
   const text = `Қазақша Wordle!\n\n${result}`;
