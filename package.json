@@ -2,6 +2,9 @@
   "private": true,
   "name": "wordle",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=22"
+  },
   "license": "MIT",
   "scripts": {
     "build": "vite build",
