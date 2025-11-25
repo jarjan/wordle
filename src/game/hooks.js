@@ -1,4 +1,9 @@
-import { useEffect, useLayoutEffect, useState } from "preact/hooks";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "preact/hooks";
 
 import words from "../constants/words.json";
 
@@ -96,24 +101,27 @@ export const useGame = () => {
     }
   }, [gameover]);
 
-  const onGameover = () => {
+  const onGameover = useCallback(() => {
     setGameover(true);
     window.localStorage.setItem("wordle", todayWord);
-  };
+  }, []);
 
-  const onLetter = (letter) => {
-    if (guess.length < 5) {
-      setGuess(guess + letter);
-    }
-  };
+  const onLetter = useCallback(
+    (letter) => {
+      if (guess.length < 5) {
+        setGuess(guess + letter);
+      }
+    },
+    [guess],
+  );
 
-  const onRemove = () => {
+  const onRemove = useCallback(() => {
     if (guess.length > 0) {
       setGuess(guess.slice(0, -1));
     }
-  };
+  }, [guess]);
 
-  const onEnter = () => {
+  const onEnter = useCallback(() => {
     if (!gameover) {
       if (guess === todayWord) {
         onGameover();
@@ -141,7 +149,28 @@ export const useGame = () => {
       onGameover();
       setToast("Келесі рет сәті түсер.");
     }
-  };
+  }, [gameover, guess, answers, chance, onGameover, setToast]);
+
+  useEffect(() => {
+    // Support for keyboard input
+    const handleKeyDown = (e) => {
+      if (gameover) return;
+
+      if (e.key === "Enter") {
+        onEnter();
+      } else if (e.key === "Backspace") {
+        onRemove();
+      } else {
+        const key = e.key.toLowerCase();
+        if (key.length === 1 && /^[а-яәіңғүұқөһ]$/.test(key)) {
+          onLetter(key);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [gameover, onEnter, onRemove, onLetter]);
 
   return {
     showToast,
