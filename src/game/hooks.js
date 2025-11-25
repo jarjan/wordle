@@ -88,14 +88,26 @@ export const useGame = () => {
     if (gameover) {
       const interval = setInterval(() => {
         const now = Date.now();
-        const timeLeft = new Date(timestamp + 86400000 - now);
-        const options = {
-          hour12: false,
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        };
-        setUntilNextWord(timeLeft.toLocaleTimeString("kk-KZ", options));
+        const nextWordTime = timestamp + (todayWordIndex + 1) * 86400000;
+        const diff = nextWordTime - now;
+
+        if (diff < 0) {
+          // Should reload or handle next word, but for now just show 00:00:00
+          setUntilNextWord("00:00:00");
+          return;
+        }
+
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        let timeString = "";
+        if (hours > 0) {
+          timeString += `${hours} сағат `;
+        }
+        timeString += `${minutes} минут ${seconds} секунд`;
+
+        setUntilNextWord(timeString);
       }, 1000);
       return () => clearInterval(interval);
     }
