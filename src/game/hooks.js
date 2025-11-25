@@ -11,7 +11,6 @@ export const timestamp = 1764104842291;
 const todayWordIndex = Math.floor((Date.now() - timestamp) / 86400000);
 export const todayWord = words[todayWordIndex];
 
-console.log({ todayWord, todayWordIndex });
 const initialAnswers =
   typeof window !== "undefined" &&
   window.localStorage.getItem(`answers${todayWord}`)
