@@ -45,7 +45,7 @@ export const Keyboard = () => {
           onLetter(e.target.id);
       }
     },
-    [onEnter, onRemove, onLetter]
+    [onEnter, onRemove, onLetter],
   );
 
   if (gameover) return null;

@@ -2,15 +2,21 @@ import { useEffect, useLayoutEffect, useState } from "preact/hooks";
 
 import words from "../constants/words.json";
 
-export const timestamp = 1642628391000;
-export const todayWord = words[Math.floor((Date.now() - timestamp) / 86400000)];
+export const timestamp = 1764104842291;
+const todayWordIndex = Math.floor((Date.now() - timestamp) / 86400000);
+export const todayWord = words[todayWordIndex];
 
-const initialAnswers = window.localStorage.getItem(`answers${todayWord}`)
-  ? JSON.parse(window.localStorage.getItem(`answers${todayWord}`))
-  : ["", "", "", "", "", ""];
+console.log({ todayWord, todayWordIndex });
+const initialAnswers =
+  typeof window !== "undefined" &&
+  window.localStorage.getItem(`answers${todayWord}`)
+    ? JSON.parse(window.localStorage.getItem(`answers${todayWord}`))
+    : ["", "", "", "", "", ""];
 const initialTips = [[], [], [], [], [], []];
 const initialChance = initialAnswers.findIndex((answer) => answer === "") || 0;
-const initialGameover = window.localStorage.getItem("wordle") === todayWord;
+const initialGameover =
+  typeof window !== "undefined" &&
+  window.localStorage.getItem("wordle") === todayWord;
 
 const useToast = () => {
   const [showToast, setShowToast] = useState(false);
@@ -41,8 +47,8 @@ export const useGame = () => {
 
   // Effect for updating tips
   useEffect(() => {
-    const newTips = [...tips];
-    const newKeyTips = { ...keyTips };
+    const newTips = [[], [], [], [], [], []];
+    const newKeyTips = {};
     answers.map((answer, i) => {
       if (answer !== "") {
         let word = todayWord;
@@ -71,6 +77,9 @@ export const useGame = () => {
     if (untilNextWord === "00:00:00") {
       window.location.reload();
     }
+  }, [untilNextWord]);
+
+  useLayoutEffect(() => {
     if (gameover) {
       const interval = setInterval(() => {
         const now = Date.now();
@@ -122,7 +131,7 @@ export const useGame = () => {
         setAnswers(newAnswers);
         window.localStorage.setItem(
           `answers${todayWord}`,
-          JSON.stringify(newAnswers)
+          JSON.stringify(newAnswers),
         );
         setChance(chance + 1);
         setGuess("");

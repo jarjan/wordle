@@ -9,9 +9,8 @@ const convertTip = (row) => {
         return "🟩";
       } else if (row[i] && row[i].isCorrect) {
         return "🟨";
-      } else {
-        return "⬜️";
       }
+      return "⬜️";
     })
     .join("");
 };
@@ -22,13 +21,14 @@ export const Share = () => {
   const result = table
     .slice(0, table.findIndex((row) => row === "🟩🟩🟩🟩🟩") + 1)
     .join("\n");
-  const text = `Қазақша Wordle!\n\n${result}\n\nhttps://wordle.jarjan.xyz`;
+  const url = "https://wordle.jarjan.xyz";
+  const text = `Қазақша Wordle!\n\n${result}`;
 
   const handleCopy = useCallback(() => {
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(text);
+      navigator.clipboard.writeText(`${text}\n\n${url}`);
     }
-  }, [tips]);
+  }, [text]);
 
   if (!gameover) return null;
 
@@ -41,12 +41,13 @@ export const Share = () => {
       )}
       <a
         class="share__button"
-        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-          text
-        )}`}
+        href={`https://www.threads.net/intent/post?text=${encodeURIComponent(
+          text,
+        )}&url=${encodeURIComponent(url)}`}
         target="_blank"
+        rel="noreferrer"
       >
-        Твиттерге бөлісу
+        Threads-қа бөлісу
       </a>
     </div>
   );

@@ -29,6 +29,7 @@ export const Board = () => {
             <div key={`answer-${i}`} class="board__tiles">
               {answer.split("").map((letter, j) => (
                 <Tile
+                  key={j}
                   value={letter}
                   isAnswered
                   isCorrect={tips[i]?.[j]?.isCorrect}
