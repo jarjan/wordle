@@ -41,7 +41,7 @@ export const Share = () => {
       )}
       <a
         class="share__button"
-        href={`https://www.threads.net/intent/post?text=${encodeURIComponent(
+        href={`https://www.threads.com/intent/post?text=${encodeURIComponent(
           text,
         )}&url=${encodeURIComponent(url)}`}
         target="_blank"
