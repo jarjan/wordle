@@ -6,11 +6,15 @@ import {
   useState,
 } from "preact/hooks";
 
+// `words` is the dictionary of valid guesses; `dailyWords` is the daily word
+// sequence (day N uses dailyWords[N]). The first 305 entries are the words that
+// were already played before the curated list was introduced.
 import words from "../constants/words.json";
+import dailyWords from "../constants/answers.json";
 
 export const timestamp = 1764104842291;
 const todayWordIndex = Math.floor((Date.now() - timestamp) / 86400000);
-export const todayWord = words[todayWordIndex];
+export const todayWord = dailyWords[todayWordIndex % dailyWords.length];
 
 const MAX_CHANCES = 6;
 // Time for a submitted row to finish flipping (5 tiles, 100ms stagger, 500ms flip).
