@@ -18,15 +18,29 @@ export const Tile = ({ value, isAnswered, isCorrect, isExact }) => {
   );
 };
 
+const Row = ({ index, className, children }) => (
+  <div class={cls("board__tiles", className)} style={{ "--row": index }}>
+    {children}
+  </div>
+);
+
 export const Board = () => {
-  const { answers, guess, chance, tips } = useContext(GameContext);
+  const { answers, guess, chance, tips, won, revealRow, shake } =
+    useContext(GameContext);
 
   return (
     <div class="board">
       {answers.map((answer, i) => {
         if (answer !== "") {
           return (
-            <div key={`answer-${i}`} class="board__tiles">
+            <Row
+              key={i}
+              index={i}
+              className={{
+                reveal: i === revealRow,
+                win: won && i === revealRow,
+              }}
+            >
               {answer.split("").map((letter, j) => (
                 <Tile
                   key={j}
@@ -36,28 +50,17 @@ export const Board = () => {
                   isExact={tips[i]?.[j]?.isExact}
                 />
               ))}
-            </div>
-          );
-        } else if (i === chance) {
-          return (
-            <div key={`answer-${i}`} class="board__tiles">
-              <Tile value={guess[0] || ""} />
-              <Tile value={guess[1] || ""} />
-              <Tile value={guess[2] || ""} />
-              <Tile value={guess[3] || ""} />
-              <Tile value={guess[4] || ""} />
-            </div>
+            </Row>
           );
         }
 
+        const letters = i === chance ? guess : "";
         return (
-          <div key={`answer-${i}`} class="board__tiles">
-            <Tile value={""} />
-            <Tile value={""} />
-            <Tile value={""} />
-            <Tile value={""} />
-            <Tile value={""} />
-          </div>
+          <Row key={i} index={i} className={{ shake: i === chance && shake }}>
+            {[0, 1, 2, 3, 4].map((j) => (
+              <Tile key={j} value={letters[j] || ""} />
+            ))}
+          </Row>
         );
       })}
     </div>

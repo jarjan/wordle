@@ -11,7 +11,10 @@ export const GameContext = createContext({
   guess: "",
   chance: 0,
   gameover: false,
+  won: false,
   untilNextWord: "",
+  revealRow: -1,
+  shake: false,
   tips: [],
   keyTips: {},
   onLetter: () => {},
@@ -20,43 +23,11 @@ export const GameContext = createContext({
 });
 
 export const GameProvider = ({ children }) => {
-  const {
-    setToast,
-    showToast,
-    toastMessage,
-    answers,
-    guess,
-    chance,
-    gameover,
-    untilNextWord,
-    tips,
-    keyTips,
-    onLetter,
-    onRemove,
-    onEnter,
-  } = useGame();
+  const game = useGame();
 
   return (
     <div class="wordle">
-      <GameContext.Provider
-        value={{
-          setToast,
-          showToast,
-          toastMessage,
-          answers,
-          guess,
-          chance,
-          gameover,
-          untilNextWord,
-          tips,
-          keyTips,
-          onLetter,
-          onRemove,
-          onEnter,
-        }}
-      >
-        {children}
-      </GameContext.Provider>
+      <GameContext.Provider value={game}>{children}</GameContext.Provider>
     </div>
   );
 };
